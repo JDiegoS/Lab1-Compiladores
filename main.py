@@ -1,6 +1,7 @@
 import os
 from antlr4 import *
 from ParserLexer import ParserLexer
+from ParserListener import ParserListener
 from ParserParser import ParserParser
 from ParserVisitor import ParserVisitor
 
@@ -10,6 +11,10 @@ def main():
     stream = CommonTokenStream(lexer)
     parser = ParserParser(stream)
     tree = parser.program()
+    # * Agregado
+    printer = ParserListener()
+    walker = ParseTreeWalker()
+    walker.walk(printer, tree)
 
     # Errores semanticos
     visitor = MyVisitor()
