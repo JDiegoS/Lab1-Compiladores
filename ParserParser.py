@@ -244,6 +244,52 @@ class ParserParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+    
+    class ClassContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def CLASS(self):
+            return self.getToken(ParserParser.CLASS, 0)
+
+        def TYPE(self, i:int=None):
+            if i is None:
+                return self.getTokens(ParserParser.TYPE)
+            else:
+                return self.getToken(ParserParser.TYPE, i)
+
+        def INHERITS(self):
+            return self.getToken(ParserParser.INHERITS, 0)
+
+        def feature(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(ParserParser.FeatureContext)
+            else:
+                return self.getTypedRuleContext(ParserParser.FeatureContext,i)
+
+
+        def SEMICOLON(self, i:int=None):
+            if i is None:
+                return self.getTokens(ParserParser.SEMICOLON)
+            else:
+                return self.getToken(ParserParser.SEMICOLON, i)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterClass" ):
+                listener.enterClass(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitClass" ):
+                listener.exitClass(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass" ):
+                return visitor.visitClass(self)
+            else:
+                return visitor.visitChildren(self)
 
 
     class NewClassContext(ParserRuleContext):
