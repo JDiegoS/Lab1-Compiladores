@@ -20,17 +20,17 @@ expr: ID ASSIGN expr        # AssignExpr
     | NEG expr        # NegExpr
     | ISVOID expr        # IsvoidExpr
     | LPAREN expr RPAREN        # ParenExpr
-    | expr MUL expr        # MulExpr
-    | expr DIV expr        # DivExpr
+    | left=expr MUL right=expr        # MulExpr
+    | left=expr DIV right=expr        # DivExpr
     | left=expr ADD right=expr        # AddExpr
-    | expr MINUS expr        # MinusExpr
-    | expr LEQUALS expr        # LequalExpr
-    | expr LT expr        # LtExpr
-    | expr EQUALS expr        # EqualsExpr
+    | left=expr MINUS right=expr        # MinusExpr
+    | left=expr LEQUALS right=expr        # LequalExpr
+    | left=expr LT right=expr        # LtExpr
+    | left=expr EQUALS right=expr        # EqualsExpr
     | NOT expr        # NotExpr
-    | ID        # IdExpr
     | INT        # IntExpr
     | STRING        # StringExpr
     | TRUE        # TrueExpr
     | FALSE        # FalseExpr
+    | ID        # IdExpr
     ;
