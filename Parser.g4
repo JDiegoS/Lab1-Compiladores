@@ -22,7 +22,7 @@ expr: ID ASSIGN expr        # AssignExpr
     | LPAREN expr RPAREN        # ParenExpr
     | expr MUL expr        # MulExpr
     | expr DIV expr        # DivExpr
-    | expr ADD expr        # AddExpr
+    | left=expr ADD right=expr        # AddExpr
     | expr MINUS expr        # MinusExpr
     | expr LEQUALS expr        # LequalExpr
     | expr LT expr        # LtExpr

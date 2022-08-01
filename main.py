@@ -5,7 +5,7 @@ from ParserParser import ParserParser
 from ParserVisitor import ParserVisitor
 
 def main():
-    data = FileStream("test.cl")
+    data = FileStream("test2.cl")
     lexer = ParserLexer(data)
     stream = CommonTokenStream(lexer)
     parser = ParserParser(stream)
@@ -16,7 +16,7 @@ def main():
     visitor.visit(tree)
     
     #Arbol
-    os.system('grun Parser program test.cl -gui -tokens')
+    os.system('grun Parser program test2.cl -gui -tokens')
 
 class MyVisitor(ParserVisitor):
     def visitProgram(self, ctx):
@@ -26,6 +26,15 @@ class MyVisitor(ParserVisitor):
     def visitFeature(self, ctx:ParserParser.FeatureContext):
         print("feature")
 
+        return self.visitChildren(ctx)
+
+    def visitAddExpr(self, ctx):
+        l = self.visit(ctx.left)
+        r = self.visit(ctx.right)
+        print(ctx.right.getText())
+        print(ctx.right.getText())
+        print(ctx.left.start)
+        print(ctx.left.start.type)
         return self.visitChildren(ctx)
 
     def visitStringExpr(self, ctx:ParserParser.StringExprContext):
