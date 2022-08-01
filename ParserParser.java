@@ -458,13 +458,15 @@ public class ParserParser extends Parser {
 		}
 	}
 	public static class MulExprContext extends ExprContext {
+		public ExprContext left;
+		public ExprContext right;
+		public TerminalNode MUL() { return getToken(ParserParser.MUL, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode MUL() { return getToken(ParserParser.MUL, 0); }
 		public MulExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -587,13 +589,15 @@ public class ParserParser extends Parser {
 		}
 	}
 	public static class LtExprContext extends ExprContext {
+		public ExprContext left;
+		public ExprContext right;
+		public TerminalNode LT() { return getToken(ParserParser.LT, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode LT() { return getToken(ParserParser.LT, 0); }
 		public LtExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -742,13 +746,15 @@ public class ParserParser extends Parser {
 		}
 	}
 	public static class DivExprContext extends ExprContext {
+		public ExprContext left;
+		public ExprContext right;
+		public TerminalNode DIV() { return getToken(ParserParser.DIV, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode DIV() { return getToken(ParserParser.DIV, 0); }
 		public DivExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -760,13 +766,15 @@ public class ParserParser extends Parser {
 		}
 	}
 	public static class EqualsExprContext extends ExprContext {
+		public ExprContext left;
+		public ExprContext right;
+		public TerminalNode EQUALS() { return getToken(ParserParser.EQUALS, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode EQUALS() { return getToken(ParserParser.EQUALS, 0); }
 		public EqualsExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -791,13 +799,15 @@ public class ParserParser extends Parser {
 		}
 	}
 	public static class LequalExprContext extends ExprContext {
+		public ExprContext left;
+		public ExprContext right;
+		public TerminalNode LEQUALS() { return getToken(ParserParser.LEQUALS, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode LEQUALS() { return getToken(ParserParser.LEQUALS, 0); }
 		public LequalExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -852,13 +862,15 @@ public class ParserParser extends Parser {
 		}
 	}
 	public static class MinusExprContext extends ExprContext {
+		public ExprContext left;
+		public ExprContext right;
+		public TerminalNode MINUS() { return getToken(ParserParser.MINUS, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode MINUS() { return getToken(ParserParser.MINUS, 0); }
 		public MinusExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1133,47 +1145,47 @@ public class ParserParser extends Parser {
 				break;
 			case 12:
 				{
-				_localctx = new IdExprContext(_localctx);
+				_localctx = new IntExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(149);
-				match(ID);
+				match(INT);
 				}
 				break;
 			case 13:
 				{
-				_localctx = new IntExprContext(_localctx);
+				_localctx = new StringExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(150);
-				match(INT);
+				match(STRING);
 				}
 				break;
 			case 14:
 				{
-				_localctx = new StringExprContext(_localctx);
+				_localctx = new TrueExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(151);
-				match(STRING);
+				match(TRUE);
 				}
 				break;
 			case 15:
 				{
-				_localctx = new TrueExprContext(_localctx);
+				_localctx = new FalseExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(152);
-				match(TRUE);
+				match(FALSE);
 				}
 				break;
 			case 16:
 				{
-				_localctx = new FalseExprContext(_localctx);
+				_localctx = new IdExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(153);
-				match(FALSE);
+				match(ID);
 				}
 				break;
 			}
@@ -1192,25 +1204,27 @@ public class ParserParser extends Parser {
 					case 1:
 						{
 						_localctx = new MulExprContext(new ExprContext(_parentctx, _parentState));
+						((MulExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(156);
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(157);
 						match(MUL);
 						setState(158);
-						expr(14);
+						((MulExprContext)_localctx).right = expr(14);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new DivExprContext(new ExprContext(_parentctx, _parentState));
+						((DivExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(159);
 						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(160);
 						match(DIV);
 						setState(161);
-						expr(13);
+						((DivExprContext)_localctx).right = expr(13);
 						}
 						break;
 					case 3:
@@ -1229,49 +1243,53 @@ public class ParserParser extends Parser {
 					case 4:
 						{
 						_localctx = new MinusExprContext(new ExprContext(_parentctx, _parentState));
+						((MinusExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(165);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
 						setState(166);
 						match(MINUS);
 						setState(167);
-						expr(11);
+						((MinusExprContext)_localctx).right = expr(11);
 						}
 						break;
 					case 5:
 						{
 						_localctx = new LequalExprContext(new ExprContext(_parentctx, _parentState));
+						((LequalExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(168);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(169);
 						match(LEQUALS);
 						setState(170);
-						expr(10);
+						((LequalExprContext)_localctx).right = expr(10);
 						}
 						break;
 					case 6:
 						{
 						_localctx = new LtExprContext(new ExprContext(_parentctx, _parentState));
+						((LtExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(171);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(172);
 						match(LT);
 						setState(173);
-						expr(9);
+						((LtExprContext)_localctx).right = expr(9);
 						}
 						break;
 					case 7:
 						{
 						_localctx = new EqualsExprContext(new ExprContext(_parentctx, _parentState));
+						((EqualsExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(174);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(175);
 						match(EQUALS);
 						setState(176);
-						expr(8);
+						((EqualsExprContext)_localctx).right = expr(8);
 						}
 						break;
 					case 8:
@@ -1478,9 +1496,9 @@ public class ParserParser extends Parser {
 		"\u008e\u009b\u0003\b\u0004\u000f\u008f\u0090\u0005\u001c\u0000\u0000\u0090"+
 		"\u0091\u0003\b\u0004\u0000\u0091\u0092\u0005\u001d\u0000\u0000\u0092\u009b"+
 		"\u0001\u0000\u0000\u0000\u0093\u0094\u0005\u001b\u0000\u0000\u0094\u009b"+
-		"\u0003\b\u0004\u0006\u0095\u009b\u0005\b\u0000\u0000\u0096\u009b\u0005"+
-		"\t\u0000\u0000\u0097\u009b\u0005/\u0000\u0000\u0098\u009b\u0005\u000b"+
-		"\u0000\u0000\u0099\u009b\u0005\f\u0000\u0000\u009aF\u0001\u0000\u0000"+
+		"\u0003\b\u0004\u0006\u0095\u009b\u0005\t\u0000\u0000\u0096\u009b\u0005"+
+		"/\u0000\u0000\u0097\u009b\u0005\u000b\u0000\u0000\u0098\u009b\u0005\f"+
+		"\u0000\u0000\u0099\u009b\u0005\b\u0000\u0000\u009aF\u0001\u0000\u0000"+
 		"\u0000\u009aJ\u0001\u0000\u0000\u0000\u009aZ\u0001\u0000\u0000\u0000\u009a"+
 		"b\u0001\u0000\u0000\u0000\u009ah\u0001\u0000\u0000\u0000\u009ar\u0001"+
 		"\u0000\u0000\u0000\u009a\u0089\u0001\u0000\u0000\u0000\u009a\u008b\u0001"+

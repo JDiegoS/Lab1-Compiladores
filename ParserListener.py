@@ -46,7 +46,6 @@ class ParserListener(ParseTreeListener):
 
         if kind == 'method':
             self.symbol_table.push_scope(children[0])
-            # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
         else:
             index = indx(children, '<-')
             if index != -1:
@@ -54,14 +53,13 @@ class ParserListener(ParseTreeListener):
 
         self.symbol_table.insert(name, typ, kind, scope, line, value)
     
-    def insert_formal(self, ctx: ParserParser.FormalContext):
+    def insert_param(self, ctx: ParserParser.ParamContext):
         children = list(map(lambda x: x.getText(), ctx.children))
         name = children[0]
         kind = PARAMETER
         typ = children[2]
         line = ctx.children[0].symbol.line
         scope = self.symbol_table.get_scope()
-        # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
         self.symbol_table.insert(name, typ, kind, scope, line)
     
     def insert_expr(self, ctx:  ParserParser.ExprContext):
@@ -73,64 +71,46 @@ class ParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by ParserParser#program.
     def exitProgram(self, ctx: ParserParser.ProgramContext):
-        # print(Fore.RESET, 'Programa adios: %s' % ctx.getText())
-        # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
         print(str(self.symbol_table))
 
     # Enter a parse tree produced by ParserParser#class.
     def enterClass(self, ctx: ParserParser.ClassContext):
-        # print(Fore.MAGENTA, 'Class: %s' % ctx.getText())
         self.insert_class(ctx)
         self.symbol_table.push_scope(ctx.children[1].getText())
         self.insert_self(ctx.children[0].symbol.line)
-        # print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
 
     # Exit a parse tree produced by ParserParser#class.
     def exitClass(self, ctx: ParserParser.ClassContext):
-        # print(Fore.MAGENTA, 'Class adios : %s' % ctx.getText())
         self.symbol_table.pop_scope()
-        # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
 
     # Enter a parse tree produced by ParserParser#feature.
     def enterFeature(self, ctx: ParserParser.FeatureContext):
-        # print(Fore.BLUE, 'Feature: %s' % ctx.getText())
         self.insert_feature(ctx)
-        # #print(Fore.RESET)
 
     # Exit a parse tree produced by ParserParser#feature.
     def exitFeature(self, ctx: ParserParser.FeatureContext):
-        # print(Fore.BLUE, 'Feature adios: %s' % ctx.getText())
         if ctx.children[1].getText() != ':':
             self.symbol_table.pop_scope()
-            # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
 
-    # Enter a parse tree produced by ParserParser#formal.
-    def enterFormal(self, ctx: ParserParser.FormalContext):
-        # print(Fore.CYAN, 'Formal: %s' % ctx.getText())
-        self.insert_formal(ctx)
+    # Enter a parse tree produced by ParserParser#Param.
+    def enterParam(self, ctx: ParserParser.ParamContext):
+        self.insert_Param(ctx)
 
-    # Exit a parse tree produced by ParserParser#formal.
-    def exitFormal(self, ctx: ParserParser.FormalContext):
+    # Exit a parse tree produced by ParserParser#Param.
+    def exitParam(self, ctx: ParserParser.ParamContext):
         pass
-        # print(Fore.CYAN, 'Formal adios: %s' % ctx.getText())
-        # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
 
     # Enter a parse tree produced by ParserParser#expr.
     def enterExpr(self, ctx: ParserParser.ExprContext):
         children = list(map(lambda x: x.getText(), ctx.children))
-        # print(Fore.RED, 'Expr: %s' % ctx.getText())
         if '<-' in children:
             self.assign_value(ctx)
-            # print(Fore.YELLOW, ctx.children[0].symbol.type)
 
-        # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
 
     # Exit a parse tree produced by ParserParser#expr.
     def exitExpr(self, ctx: ParserParser.ExprContext):
         pass
         # return
-        # print(Fore.RED, 'Expr adios: %s' % ctx.getText())
-        # #print(Fore.YELLOW, 'Scope actual: ', self.symbol_table.get_scope())
 
     # Enter a parse tree produced by ParserParser#newClass.
     def enterNewClass(self, ctx:ParserParser.NewClassContext):

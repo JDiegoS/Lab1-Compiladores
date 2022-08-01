@@ -1,11 +1,11 @@
 class Main {
-    a : Int <- 1;
+    a : Int <- 1 * "2";
     b : String <- "Hola";
-    c : Int <- 3; 
+    c : Int <- 3 - true; 
 
     main() : SELF_TYPE {
         {
-            a <- a + b *c;
+            a <- b + 1;
             self;
         }
     } ;
