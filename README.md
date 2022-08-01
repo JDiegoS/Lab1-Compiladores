@@ -1,6 +1,6 @@
 # Lab1-Compiladores
 
-Video:  
+Video:  https://youtu.be/DBi4VGahIfM
 
 Para correr el programa ejecutar en cmd (si los archivos ya estan generados, solo seguir paso 4):
 1. antlr Parser.g4
